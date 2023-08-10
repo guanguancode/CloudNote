@@ -7,7 +7,7 @@
                     <div class="form">
                         <h3 @click="showRegister">创建账户</h3>
                         <transition name="slide">
-                            <div v-bind:class="{show: isShowRegister}" class="register">
+                            <div v-show="isShowRegister" class="register">
                                 <input type="text" v-model="register.username" placeholder="用户名">
                                 <input type="password" v-model="register.password" placeholder="密码">
                                 <p v-bind:class="{error: register.isError}">{{ register.notice }}</p>
@@ -16,7 +16,7 @@
                         </transition>
                         <h3 @click="showLogin">登录</h3>
                         <transition name="slide">
-                            <div v-bind:class="{show: isShowLogin}" class="login">
+                            <div v-show="isShowLogin" class="login">
                                 <input type="text" v-model="login.username" placeholder="用户名">
                                 <input type="password" v-model="login.password" placeholder="密码">
                                 <p v-bind:class="{error: login.isError}">{{ login.notice }}</p>
@@ -54,11 +54,15 @@ export default {
     methods: {
         showLogin() {
             this.isShowLogin = true
+            console.log('isShowLogin', this.isShowLogin)
             this.isShowRegister = false
+            console.log('isShowRegister',this.isShowRegister)
         },
         showRegister() {
             this.isShowLogin = false
+            console.log('isShowLogin', this.isShowLogin)
             this.isShowRegister = true
+            console.log('isShowRegister',this.isShowRegister)
         },
         onRegister() {
             if (!/^[\w\u4e00-\u9fa5]{3,15}$/.test(this.register.username)) {
@@ -161,15 +165,29 @@ export default {
         cursor: pointer;
     }
 
+
+/* 可以设置不同的进入和离开动画 */
+/* 设置持续时间和动画函数 */
+.slide-enter-active {
+  transition: all .2s ease;
+}
+.slide-leave-active {
+  transition: all .4s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-enter, .slide-leave-to
+/* .slide-fade-leave-active for below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
+}
     .login, .register{
         padding: 0px 20px;
         border-top: 1px solid #eee;
-        height: 0;
+        // height: 0;
         overflow: hidden;
-        transition: height  2s ease-out;
+        // transition: height  2s ease-out;
 
         &.show{
-            height: 195px;
+            height:267px;
         }
     }
 
