@@ -3,13 +3,15 @@
         <div class="modal-mask">
             <div class="modal-wrapper">
                 <div class="modal-container">
-                    <div class="main"></div>
+                    <div class="main">
+                        <img src="../assets/note-login1.jpeg" alt="">
+                    </div>
                     <div class="form">
                         <h3 @click="showRegister">创建账户</h3>
                         <transition name="slide">
                             <div v-show="isShowRegister" class="register">
                                 <input type="text" v-model="register.username" placeholder="用户名">
-                                <input type="password" v-model="register.password" placeholder="密码">
+                                <input type="password" v-model="register.password" @keyup.enter="onRegister" placeholder="密码">
                                 <p v-bind:class="{error: register.isError}">{{ register.notice }}</p>
                                 <div class="button" @click="onRegister">创建账号</div>
                             </div>
@@ -17,8 +19,8 @@
                         <h3 @click="showLogin">登录</h3>
                         <transition name="slide">
                             <div v-show="isShowLogin" class="login">
-                                <input type="text" v-model="login.username" placeholder="用户名">
-                                <input type="password" v-model="login.password" placeholder="密码">
+                                <input type="text" v-model="login.username" placeholder="请输入用户名">
+                                <input type="password" v-model="login.password" @keyup.enter="onLogin" placeholder="密码">
                                 <p v-bind:class="{error: login.isError}">{{ login.notice }}</p>
                                 <div class="button" @click="onLogin">登录</div>
                             </div>
@@ -31,6 +33,14 @@
 </template>
 
 <script>
+
+  import Auth from '@/apis/auth'
+
+  Auth.getInfo()
+    .then(data => {
+      console.log(data)
+    })
+
 export default {
     data() {
         return {
@@ -54,15 +64,11 @@ export default {
     methods: {
         showLogin() {
             this.isShowLogin = true
-            console.log('isShowLogin', this.isShowLogin)
             this.isShowRegister = false
-            console.log('isShowRegister',this.isShowRegister)
         },
         showRegister() {
             this.isShowLogin = false
-            console.log('isShowLogin', this.isShowLogin)
             this.isShowRegister = true
-            console.log('isShowRegister',this.isShowRegister)
         },
         onRegister() {
             if (!/^[\w\u4e00-\u9fa5]{3,15}$/.test(this.register.username)) {
@@ -77,8 +83,13 @@ export default {
             }
             this.register.isError = false
             this.register.notice = ''
-            console.log('1')
             console.log(`start register..., username:${this.register.username}, password: ${this.register.password}`)
+            Auth.register({
+                username: this.register.username,
+                password: this.register.password,
+            }).then(data => {
+                console.log(data)
+            })
         },
         onLogin() {
             if (!/^[\w\u4e00-\u9fa5]{3,15}$/.test(this.login.username)) {
@@ -94,6 +105,12 @@ export default {
             this.login.isError = false
             this.login.notice =''
             console.log(`start login..., username:${this.login.username}, password: ${this.login.password}`)
+            Auth.login({
+                username: this.login.username,
+                password: this.login.password,
+            }).then(data => {
+                console.log(data)
+            })
         }
     }
 }
@@ -118,8 +135,8 @@ export default {
 }
 
 .modal-container {
-    width: 800px;
-    height: 500px;
+    width: 1085px;
+    height: 600px;
     margin: 0px auto;
     background-color: #fff;
     border-radius: 2px;
@@ -131,8 +148,21 @@ export default {
 
 .main{
     flex: 1;
-    background: #36bc64 url(//cloud.hunger-valley.com/17-12-13/38476998.jpg-middle) center center no-repeat;
+    background: #36bc64;
     background-size: contain;
+    // text-align: center;
+    // display:flex;
+
+    img{
+        width: 400px;
+        // max-width: 100%;
+        // height: 500px;
+        margin-top: -50%;
+        margin-left: -50%;
+        top: 50%;
+        left: 50%;
+        position: absolute;
+    }
 }
 
 .form{

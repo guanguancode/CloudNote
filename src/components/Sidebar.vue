@@ -19,13 +19,25 @@
 </template>
 
 <script>
-import avatar from './Avatar.vue';
+import avatar from '@/components/Avatar.vue';
+import Auth from '../apis/auth';
 
 export default {
     components: {
         avatar
-    }
+    },
+
+    methods: {
+        logout() {
+            console.log('logout')
+            Auth.logout()
+                .then(data => {
+                console.log(data)
+              })
+        }
+    },
   }
+  
 </script>
 
 <style lang="less" scoped>
