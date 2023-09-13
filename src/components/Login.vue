@@ -135,8 +135,8 @@ export default {
 }
 
 .modal-container {
-    width: 1085px;
-    height: 600px;
+    width: 800px;
+    height: 500px;
     margin: 0px auto;
     background-color: #fff;
     border-radius: 2px;
@@ -150,18 +150,18 @@ export default {
     flex: 1;
     background: #36bc64;
     background-size: contain;
-    // text-align: center;
-    // display:flex;
+    position: relative;
 
     img{
-        width: 400px;
+        width: 530px;
         // max-width: 100%;
         // height: 500px;
-        margin-top: -50%;
-        margin-left: -50%;
+        // margin-top: -50%;
+        // margin-left: -50%;
         top: 50%;
         left: 50%;
         position: absolute;
+        transform: translate(-50%, -50%);
     }
 }
 
