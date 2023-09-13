@@ -42,7 +42,7 @@
     })
 
 export default {
-    data() {
+    data(){
         return {
             isShowLogin: true,
             isShowRegister: false,
@@ -62,21 +62,21 @@ export default {
     },
 
     methods: {
-        showLogin() {
-            this.isShowLogin = true
-            this.isShowRegister = false
+        showLogin(){
+          this.isShowLogin = true
+          this.isShowRegister = false
         },
-        showRegister() {
-            this.isShowLogin = false
-            this.isShowRegister = true
+        showRegister(){
+          this.isShowLogin = false
+          this.isShowRegister = true
         },
-        onRegister() {
-            if (!/^[\w\u4e00-\u9fa5]{3,15}$/.test(this.register.username)) {
-                this.register.isError = true
-                this.register.notice = '用户名3~15个字符，仅限于字母数字下划线中文'
-                return
-            }
-            if (!/^.{6,16}$/.test(this.register.password)) {
+        onRegister(){
+          if(!/^[\w\u4e00-\u9fa5]{3,15}$/.test(this.register.username)){
+            this.register.isError = true
+            this.register.notice = '用户名3~15个字符，仅限于字母数字下划线中文'
+            return
+          }
+          if(!/^.{6,16}$/.test(this.register.password)){
                 this.register.isError = true
                 this.register.notice = '密码长度为6-16个字符'
                 return
@@ -154,10 +154,6 @@ export default {
 
     img{
         width: 530px;
-        // max-width: 100%;
-        // height: 500px;
-        // margin-top: -50%;
-        // margin-left: -50%;
         top: 50%;
         left: 50%;
         position: absolute;
